@@ -42,7 +42,13 @@ public class AsIntStream implements IntStream {
     private int max_min(boolean predicate){
         isEmpty();
         terminate();
-        int res = 0;
+        for (int v : values){
+            System.out.println(v);
+        }
+        int res = Integer.MAX_VALUE;
+        if (predicate) {
+            res = Integer.MIN_VALUE;
+        }
         for (int val : values){
             if (res > val ^ predicate){
                 res = val;
