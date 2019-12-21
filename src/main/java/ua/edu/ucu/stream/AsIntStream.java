@@ -1,6 +1,5 @@
 package ua.edu.ucu.stream;
 
-import com.sun.java.util.jar.pack.ConstantPool;
 import ua.edu.ucu.function.*;
 
 import java.util.ArrayList;
@@ -8,7 +7,7 @@ import java.util.Arrays;
 
 public class AsIntStream implements IntStream {
     private int[] values;
-    private ArrayList<Action> actions;
+    private ArrayList<Action> actions = new ArrayList<>();
 
 
     private AsIntStream(int... values) {
@@ -77,22 +76,28 @@ public class AsIntStream implements IntStream {
 
     @Override
     public void forEach(IntConsumer action) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        terminate();
+        for (int val : values){
+            action.accept(val);
+        }
     }
 
     @Override
     public IntStream map(IntUnaryOperator mapper) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        actions.add(new UnaryOperator(mapper));
+        return this;
     }
 
     @Override
     public IntStream flatMap(IntToIntStreamFunction func) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        actions.add(new ToIntStreamFunction(func));
+        return this;
     }
 
     @Override
     public int reduce(int identity, IntBinaryOperator op) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        terminate();
+        return  new BinaryOperation(op).applyAction(identity, values);
     }
 
     @Override
@@ -103,7 +108,7 @@ public class AsIntStream implements IntStream {
 
     private void terminate(){
         for (Action action : actions){
-            action.applyAction(values);
+            values = action.applyAction(values);
         }
     }
 
