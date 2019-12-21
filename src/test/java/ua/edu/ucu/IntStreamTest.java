@@ -89,4 +89,12 @@ public class IntStreamTest {
         assertEquals(expResult, result);
     }
 
+    @Test
+    public void testReduce() {
+        System.out.println("Reduce");
+        long expResult = 5;
+        long result = intStream.reduce(0, (identity, x) -> x + identity);
+        assertEquals(expResult, result);
+    }
+
 }
