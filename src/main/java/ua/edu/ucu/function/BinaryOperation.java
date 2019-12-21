@@ -13,9 +13,10 @@ public class BinaryOperation implements IntBinaryOperator {
     }
 
     public int applyAction(int identity, int[] values) {
+        int res = identity;
         for (int val : values) {
-            identity = apply(identity, val);
+            res = apply(res, val);
         }
-        return identity;
+        return res;
     }
 }

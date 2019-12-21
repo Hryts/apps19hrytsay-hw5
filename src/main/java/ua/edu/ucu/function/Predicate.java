@@ -17,8 +17,7 @@ public class Predicate implements IntPredicate, Action {
                 values[counter++] = values[i];
             }
         }
-        values = Arrays.copyOfRange(values, 0, counter);
-        return values;
+        return Arrays.copyOfRange(values, 0, counter);
     }
 
     @Override

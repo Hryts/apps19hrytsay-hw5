@@ -1,5 +1,6 @@
 package ua.edu.ucu.stream;
 
+
 import ua.edu.ucu.function.*;
 
 import java.util.ArrayList;
@@ -31,15 +32,15 @@ public class AsIntStream implements IntStream {
 
     @Override
     public Integer max() {
-        return max_min(true);
+        return maxMin(true);
     }
 
     @Override
     public Integer min() {
-        return max_min(false);
+        return maxMin(false);
     }
 
-    private int max_min(boolean predicate) {
+    private int maxMin(boolean predicate) {
         isEmpty();
         terminate();
         for (int v : values) {
