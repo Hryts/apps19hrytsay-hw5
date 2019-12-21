@@ -81,4 +81,12 @@ public class IntStreamTest {
         assertArrayEquals(expResult, result);
     }
 
+    @Test
+    public void testCount() {
+        System.out.println("Count");
+        long expResult = 5;
+        long result = intStream.count();
+        assertEquals(expResult, result);
+    }
+
 }
