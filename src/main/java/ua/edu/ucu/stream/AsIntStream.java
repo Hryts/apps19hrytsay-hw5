@@ -2,14 +2,19 @@ package ua.edu.ucu.stream;
 
 import ua.edu.ucu.function.*;
 
-public class AsIntStream implements IntStream {
+import java.util.ArrayList;
 
-    private AsIntStream() {
-        // To Do
+public class AsIntStream implements IntStream {
+    private int[] values;
+    private ArrayList<Action> actions;
+
+
+    private AsIntStream(int... values) {
+        this.values = values;
     }
 
     public static IntStream of(int... values) {
-        return null;
+        return new AsIntStream(values);
     }
 
     @Override
@@ -67,4 +72,9 @@ public class AsIntStream implements IntStream {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    private void terminate(){
+        for (Action action : actions){
+            action.applyAction(values);
+        }
+    }
 }
