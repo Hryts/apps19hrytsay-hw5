@@ -23,7 +23,7 @@ public class AsIntStream implements IntStream {
         isEmpty();
         terminate();
         double res = 0;
-        for (int val : values){
+        for (int val : values) {
             res += val;
         }
         return res / values.length;
@@ -39,18 +39,18 @@ public class AsIntStream implements IntStream {
         return max_min(false);
     }
 
-    private int max_min(boolean predicate){
+    private int max_min(boolean predicate) {
         isEmpty();
         terminate();
-        for (int v : values){
+        for (int v : values) {
             System.out.println(v);
         }
         int res = Integer.MAX_VALUE;
         if (predicate) {
             res = Integer.MIN_VALUE;
         }
-        for (int val : values){
-            if (res > val ^ predicate){
+        for (int val : values) {
+            if (res > val ^ predicate) {
                 res = val;
             }
         }
@@ -68,7 +68,7 @@ public class AsIntStream implements IntStream {
         isEmpty();
         terminate();
         int res = 0;
-        for (int val : values){
+        for (int val : values) {
             res += val;
         }
         return res;
@@ -83,7 +83,7 @@ public class AsIntStream implements IntStream {
     @Override
     public void forEach(IntConsumer action) {
         terminate();
-        for (int val : values){
+        for (int val : values) {
             action.accept(val);
         }
     }
@@ -103,23 +103,23 @@ public class AsIntStream implements IntStream {
     @Override
     public int reduce(int identity, IntBinaryOperator op) {
         terminate();
-        return  new BinaryOperation(op).applyAction(identity, values);
+        return new BinaryOperation(op).applyAction(identity, values);
     }
 
     @Override
     public int[] toArray() {
-    terminate();
-    return Arrays.copyOf(values, values.length);
+        terminate();
+        return Arrays.copyOf(values, values.length);
     }
 
-    private void terminate(){
-        for (Action action : actions){
+    private void terminate() {
+        for (Action action : actions) {
             values = action.applyAction(values);
         }
     }
 
-    private void isEmpty(){
-        if (values.length == 0){
+    private void isEmpty() {
+        if (values.length == 0) {
             throw new IllegalArgumentException();
         }
     }

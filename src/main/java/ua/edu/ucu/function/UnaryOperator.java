@@ -9,7 +9,7 @@ public class UnaryOperator implements IntUnaryOperator, Action {
 
     @Override
     public int[] applyAction(int[] values) {
-        for (int i = 0; i < values.length; ++i){
+        for (int i = 0; i < values.length; ++i) {
             values[i] = apply(values[i]);
         }
         return values;

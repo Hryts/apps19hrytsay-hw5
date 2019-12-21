@@ -14,13 +14,13 @@ public class ToIntStreamFunction implements IntToIntStreamFunction, Action {
     @Override
     public int[] applyAction(int[] values) {
         ArrayList<Integer> res = new ArrayList<>();
-        for (int val : values){
-            for (int resVal: applyAsIntStream(val).toArray()){
+        for (int val : values) {
+            for (int resVal : applyAsIntStream(val).toArray()) {
                 res.add(resVal);
             }
         }
         values = new int[res.size()];
-        for (int i = 0; i < res.size(); ++i){
+        for (int i = 0; i < res.size(); ++i) {
             values[i] = res.get(i);
         }
         return values;

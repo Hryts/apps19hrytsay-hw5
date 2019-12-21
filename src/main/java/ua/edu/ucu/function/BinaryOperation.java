@@ -1,6 +1,6 @@
 package ua.edu.ucu.function;
 
-public class BinaryOperation implements IntBinaryOperator{
+public class BinaryOperation implements IntBinaryOperator {
     private IntBinaryOperator operator;
 
     public BinaryOperation(IntBinaryOperator operator) {
@@ -13,7 +13,7 @@ public class BinaryOperation implements IntBinaryOperator{
     }
 
     public int applyAction(int identity, int[] values) {
-        for (int val : values){
+        for (int val : values) {
             identity = apply(identity, val);
         }
         return identity;

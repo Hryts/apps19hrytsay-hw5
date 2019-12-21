@@ -12,12 +12,12 @@ public class Predicate implements IntPredicate, Action {
     @Override
     public int[] applyAction(int[] values) {
         int counter = 0;
-        for (int i = 0; i < values.length; ++i){
-            if (test(values[i])){
+        for (int i = 0; i < values.length; ++i) {
+            if (test(values[i])) {
                 values[counter++] = values[i];
             }
         }
-        values = Arrays.copyOfRange(values,0, counter);
+        values = Arrays.copyOfRange(values, 0, counter);
         return values;
     }
 
