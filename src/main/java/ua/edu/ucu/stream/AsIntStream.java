@@ -1,8 +1,10 @@
 package ua.edu.ucu.stream;
 
+import com.sun.java.util.jar.pack.ConstantPool;
 import ua.edu.ucu.function.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class AsIntStream implements IntStream {
     private int[] values;
@@ -19,32 +21,58 @@ public class AsIntStream implements IntStream {
 
     @Override
     public Double average() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        isEmpty();
+        terminate();
+        double res = 0;
+        for (int val : values){
+            res += val;
+        }
+        return res / values.length;
     }
 
     @Override
     public Integer max() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return max_min(true);
     }
 
     @Override
     public Integer min() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return max_min(false);
+    }
+
+    private int max_min(boolean predicate){
+        isEmpty();
+        terminate();
+        int res = 0;
+        for (int val : values){
+            if (res > val ^ predicate){
+                res = val;
+            }
+        }
+        return res;
     }
 
     @Override
     public long count() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        terminate();
+        return values.length;
     }
 
     @Override
     public Integer sum() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        isEmpty();
+        terminate();
+        int res = 0;
+        for (int val : values){
+            res += val;
+        }
+        return res;
     }
 
     @Override
     public IntStream filter(IntPredicate predicate) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        actions.add(new Predicate(predicate));
+        return this;
     }
 
     @Override
@@ -69,12 +97,19 @@ public class AsIntStream implements IntStream {
 
     @Override
     public int[] toArray() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    terminate();
+    return Arrays.copyOf(values, values.length);
     }
 
     private void terminate(){
         for (Action action : actions){
             action.applyAction(values);
+        }
+    }
+
+    private void isEmpty(){
+        if (values.length == 0){
+            throw new IllegalArgumentException();
         }
     }
 }
